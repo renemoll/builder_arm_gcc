@@ -10,7 +10,8 @@ RUN apt-get update && \
 		bzip2 \
 		wget \
 		cmake \
-		python3-minimal && \
+		python3-minimal \
+		python3-docopt && \
 	apt-get clean
 
 WORKDIR /opt
