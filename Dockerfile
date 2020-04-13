@@ -3,16 +3,16 @@ LABEL description="Builder for bare metal ARM."
 LABEL version="1.0"
 
 RUN apt-get update && \
-	apt-get upgrade -y && \
-	apt-get install -y \
-		build-essential \
+	apt-get install -y --no-install-recommends \
+		ca-certificates \
 		git \
 		bzip2 \
 		wget \
+		make \
 		cmake \
 		python3-minimal \
 		python3-docopt && \
-	apt-get clean
+	rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt
 RUN wget -qO - https://developer.arm.com/-/media/Files/downloads/gnu-rm/9-2019q4/gcc-arm-none-eabi-9-2019-q4-major-x86_64-linux.tar.bz2 | tar -xj
