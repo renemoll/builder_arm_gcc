@@ -1,6 +1,6 @@
 FROM ubuntu:19.10
 LABEL description="Builder for bare metal ARM."
-LABEL version="1.0"
+LABEL version="1.1"
 
 RUN apt-get update && \
 	apt-get install -y --no-install-recommends \
