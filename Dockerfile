@@ -15,7 +15,9 @@ RUN apt-get update && \
 		cmake \
 		ninja-build \
 		python3-minimal \
-		python3-docopt && \
+		python3-docopt \
+		libncurses5 \
+		libpython2.7 && \
 	rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt
