@@ -13,6 +13,7 @@ RUN apt-get update && \
 		wget \
 		make \
 		cmake \
+		cppcheck \
 		ninja-build \
 		python3-minimal \
 		python3-docopt \
