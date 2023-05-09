@@ -1,6 +1,6 @@
 # Docker image for ARM
 
-A docker image with the arm-none-eabi-gcc toolchain (version 10.3-2021.10) installed.
+A docker image with the arm-none-eabi-gcc toolchain (version 12.2-2023.03) installed.
 
 ## How to use
 
