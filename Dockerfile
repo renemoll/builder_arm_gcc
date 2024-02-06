@@ -1,4 +1,4 @@
-FROM ubuntu:lunar-20230420 as builder
+FROM ubuntu:mantic as builder
 
 RUN apt-get update && \
 	apt-get install -y --no-install-recommends \
@@ -7,18 +7,19 @@ RUN apt-get update && \
 		xz-utils
 
 WORKDIR /opt
-RUN curl https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu/12.2.mpacbti-rel1/binrel/arm-gnu-toolchain-12.2.mpacbti-rel1-x86_64-arm-none-eabi.tar.xz --output arm-gnu-toolchain-12.2.mpacbti-rel1-x86_64-arm-none-eabi.tar.xz
-RUN tar -xf arm-gnu-toolchain-12.2.mpacbti-rel1-x86_64-arm-none-eabi.tar.xz
+RUN curl https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu/13.2.rel1/binrel/arm-gnu-toolchain-13.2.rel1-x86_64-arm-none-eabi.tar.xz --output arm-gnu-toolchain-13.2.rel1-x86_64-arm-none-eabi.tar.xz
+RUN tar -xf arm-gnu-toolchain-13.2.rel1-x86_64-arm-none-eabi.tar.xz
 
-FROM ubuntu:lunar-20230420 as runner
+FROM ubuntu:mantic as runner
 LABEL description="Linux container with a gcc-arm-eabi build environment."
-LABEL version="1.3"
+LABEL version="1.4"
 
 ENV TZ=Europe/Amsterdam
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update && \
 	apt-get install -y --no-install-recommends \
+		ca-certificates \
 		git \
 		make \
 		cmake \
@@ -29,8 +30,8 @@ RUN apt-get update && \
 	rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt
-COPY --from=builder /opt/arm-gnu-toolchain-12.2.mpacbti-rel1-x86_64-arm-none-eabi /opt/arm-gnu-toolchain-12.2.mpacbti-rel1-x86_64-arm-none-eabi
-ENV PATH "/opt/arm-gnu-toolchain-12.2.mpacbti-rel1-x86_64-arm-none-eabi/bin:$PATH"
+COPY --from=builder /opt/arm-gnu-toolchain-13.2.Rel1-x86_64-arm-none-eabi /opt/arm-gnu-toolchain-13.2.rel1-x86_64-arm-none-eabi
+ENV PATH "/opt/arm-gnu-toolchain-13.2.rel1-x86_64-arm-none-eabi/bin:$PATH"
 
 WORKDIR /work
 ADD . /work
